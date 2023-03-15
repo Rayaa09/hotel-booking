@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Importing bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="./styles/loader.css">
+    <title>Index</title>
+</head>
+<style>
+#cityImage {
+    height: 150px;
+    width: 150px;
+    border-radius: 25%;
+    box-shadow: 10px 10px 10px grey;
+}
+/* Setting Background Image and setting related properties and styling */
+.backgroundImage {
+    background: url("https://media-cdn.tripadvisor.com/media/photo-o/14/10/2e/af/india.jpg") no-repeat;
+    height: 380px;
+    width: auto;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+#searchBar {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25%;
+}
+
+#search-input {
+    background-color: #f1f1f1;
+    border: 1px solid transparent;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 12px;
+    outline: none;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.cityImages {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 4% 0%;
+}
+
+.cityImages_innerText {
+    position: relative;
+}
+/* Overlaying of text over City image */
+.textoverlay {
+    position: absolute;
+    transition: 0.0s ease;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    border-radius: 25%;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.cityImages_innerText:hover .textoverlay {
+    opacity: 1;
+}
+
+.textoverlay span {
+    position: relative;
+    top: 45%;
+    color: #f1f1f1;
+    /* transform: translate(-50%, -50%); */
+}
+
+#viewMore {
+    margin-bottom: 6%;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 575.99px) {
+    #search-bar {
+        width: 60%;
+    }
+    .cityImages {
+        flex-direction: column;
+        margin: auto;
+    }
+    #cityImage{
+        height: 200px;
+        width: 200px;
+    }
+    .cityImages_innerText{
+        padding: 4% 0%;
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 768px) {
+    #search-bar {
+        width: 60%;
+    }
+    .cityImages {
+        flex-wrap: wrap;
+        margin: auto;
+    }
+    #cityImage{
+        height: 250px;
+        width: 260px;
+    }
+    .cityImages_innerText{
+        padding: 4% 0%;
+    }
+}
+/* Importing of font family Ubuntu */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+* {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#headerLogo {
+    height: 100%;
+    width: 60px;
+}
+
+.logo {
+    margin-left: 1%;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    background-color: #e0e0e0;
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    font-family: 'Ubuntu', sans-serif;
+    text-decoration: none;
+    color: black;
+}
+
+/* Making header and footer styling common for all pages */
+.header-footer {
+    background-color: rosybrown;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header {
+    top: 0;
+}
+
+footer {
+    padding: 0.7%;
+    bottom: 0;
+    display: flex;
+    align-content: space-around;
+}
+
+#login-button {
+    margin: auto;
+}
+
+#login {
+    float:right;
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-field {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 2%;
+}
+
+#login-button {
+    margin: auto;
+}
+
+.socialMedia {
+    height: 20px;
+    width: 22px;
+}
+
+#contact {
+    margin-left: 2%;
+}
+
+#socialMediaImages {
+    margin-right: 2%;
+}
+
+#copyright_text {
+    font-size: 10px;
+}
+
+.hotel-name-rating {
+    padding: 3% 3%;
+}
+
+.rated {
+    color: orange;
+}
+#loader {
+    border: 12px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 12px solid #444444;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    animation: rotation 1s infinite linear;
+}
+
+@keyframes rotation {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+</style>
+<body>
+    <div id="loader"></div>
+    <div class="main-container">
+        <header class="header-footer" id="headerID"></header>
+        <!-- Content Div -->
+        <div class="flex-container">
+            <div class="backgroundImage">
+                <div id="searchBar">
+                   
+                </div>
+            </div>
+            <div class="cityImages">
+                <div>
+                    <div class="cityImages_innerText">
+                        <a href="{% url 'list' %}"><img
+                                src="https://media-cdn.tripadvisor.com/media/photo-s/15/33/fe/a2/new-delhi.jpg"
+                                id="cityImage" alt="Delhi">
+                            <div class="textoverlay">
+                                <span>Delhi</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="cityImages_innerText">
+                        <a href="{% url 'list' %}"><img
+                            src="https://media-cdn.tripadvisor.com/media/photo-s/15/33/fc/f0/goa.jpg" id="cityImage"
+                            alt="Goa">
+                        <div class="textoverlay">
+                            <span>Goa</span>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="cityImages_innerText">
+                        <a href="{% url 'list' %}"><img
+                            src="https://media-cdn.tripadvisor.com/media/photo-s/0f/98/f7/df/charminar.jpg"
+                            id="cityImage" alt="Hyderabad">
+                        <div class="textoverlay">
+                            <span>Hyderabad</span>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="cityImages_innerText">
+                        <a href="{% url 'list' %}"><img
+                            src="https://media-cdn.tripadvisor.com/media/photo-s/15/33/fe/ac/kolkata-calcutta.jpg"
+                            id="cityImage" alt="Kolkata">
+                        <div class="textoverlay">
+                            <span>Kolkata</span>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+            </div>
+            <div id="view-more-city-cards">
+            <div class="cityImages">
+                <div>
+                    <div class="cityImages_innerText">
+                        <a href="{% url 'list' %}"><img
+                                src="https://media-cdn.tripadvisor.com/media/photo-s/15/4d/46/b8/chennai-madras.jpg"
+                                id="cityImage" alt="Chennai">
+                            <div class="textoverlay">
+                                <span>Chennai</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="cityImages_innerText">
+                        <a href="{% url 'list' %}"><img
+                            src="https://media-cdn.tripadvisor.com/media/photo-s/15/33/fc/fc/agra.jpg" id="cityImage"
+                            alt="Agra">
+                        <div class="textoverlay">
+                            <span>Agra</span>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="cityImages_innerText">
+                        <a href="{% url 'list' %}"><img
+                            src="https://media-cdn.tripadvisor.com/media/photo-s/10/a3/3b/8a/screenshot-2017-09-12.jpg"
+                            id="cityImage" alt="Jaipur">
+                        <div class="textoverlay">
+                            <span>Jaipur</span>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="cityImages_innerText">
+                        <a href="{% url 'list' %}"><img
+                            src="https://media-cdn.tripadvisor.com/media/photo-s/0c/d2/2f/7a/palace-from-the-outside.jpg"
+                            id="cityImage" alt="Bengaluru">
+                        <div class="textoverlay">
+                            <span>Bengaluru</span>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <a id="viewMore">
+                <button type="button" id="viewMoreBtn" class="btn btn-secondary" onclick="viewMore()">View More</button></a>
+        </div>
+        <footer class="header-footer" id="footerID">
+        </footer>
+    </div>
+    <script src="./scripts/common.js"></script>
+    <script src="./scripts/index.js"></script>
+</body>
+<script>
+
+let disableLoader = () => {
+    document.getElementById("loader").style.visibility = "hidden";
+    document.getElementsByTagName("body")[0].style.visibility = "visible";
+}
+let displayLoader = () => {
+    document.getElementsByTagName("body")[0].style.visibility = "hidden";
+    document.getElementById("loader").style.visibility  = "visible";
+}
+// The header template
+let displayHeaderTemplate = () => {
+	let headerTemplate = `
+
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="login-modal-label">Please Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="login-form">
+                <div class="login-field">
+                    <label for="username">Username: </label>
+                    <input type="text" id="username" name="username" placeholder="Enter Username"
+                        required>
+                </div>
+                <div class="login-field">
+                    <label for="password">Password: </label>
+                    <input type="password" id="password" name="password" placeholder="Enter Password"
+                        required>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button id="login-button" type="button" class="btn btn-primary"
+                data-dismiss="modal" onclick="login(event)">Login</button>
+        </div>
+    </div>
+</div>
+</div>`;
+	document.getElementById('headerID').innerHTML += headerTemplate;
+};
+
+// The footer template
+let displayFooterTemplate = () => {
+	let footerTemplate = `<div id="contact">
+   
+    <!-- Contact Us modal -->
+    <div class="modal fade" id="contact-modal" tabindex="-1" role="dialog"
+        aria-labelledby="contact-modal-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact-modal-label">Get in touch</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <p>
+                            Thank you for reaching out!!! <br>
+                            Please enter you email and we will get back to you.
+                        </p>
+                        <label for="email">Email: </label>
+                        <input type="text" id="email" name="email" placeholder="Enter your email id"
+                            required>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Sumbit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="copyright_text">
+    &copy; 2020 ROOM SEARCH PVT. LTD.
+</div>
+<div id="socialMediaImages">
+    <a href="https://www.facebook.com" target="_blank">
+        <img src="./assests/images/facebook.png" class="socialMedia">
+    </a>
+    <a href="https://www.instagram.com" target="_blank">
+        <img src="./assests/images/instagram.png" class="socialMedia">
+    </a>
+    <a href="https://twitter.com" target="_blank">
+        <img src="./assests/images/twitter.png" class="socialMedia">
+    </a>
+</div>`;
+
+	document.getElementById('footerID').innerHTML += footerTemplate;
+};
+
+//display the loader until the page loads
+// displayLoader();
+// display header and footer templates
+displayHeaderTemplate();
+displayFooterTemplate();
+
+/**
+ * Event handler invoked when login button inside the HEADER is clicked
+ * @param {*} e event
+ */
+ let mainLogin = e => {
+	if (localStorage.getItem('isLogin') === 'true') {
+		localStorage.setItem('isLogin', 'false');
+		location.reload();
+	}
+};
+
+/**
+ * Event handler invoked when login button inside the LOGIN MODAL is clicked
+ * @param {*} e event
+ */
+let login = e => {
+	// setting both username and password to admin
+	localStorage.setItem('username', 'admin');
+	localStorage.setItem('password', 'admin');
+	// setting the user state as non logged on webpage load
+	localStorage.setItem('isLogin', 'false');
+
+	e.preventDefault();
+	let userElement = document.getElementById('username');
+	let passwordElement = document.getElementById('password');
+
+	if (
+		userElement.value === localStorage.getItem('username') &&
+		passwordElement.value === localStorage.getItem('password')
+	) {
+		localStorage.setItem('isLogin', 'true');
+        alert('Successfully logged in!');
+        let loginElement = document.getElementById('login')
+        loginElement.dataset.target = '';
+        loginElement.innerText = 'LOGOUT';
+        location.reload();
+	} else {
+		alert('Incorrect credentials! Login failed!');
+		// clearing values of username & password fields from login modal
+		userElement.value = '';
+		passwordElement.value = '';
+	}
+};
+
+let isLogin = localStorage.getItem('isLogin');
+let loginElement = document.getElementById('login');
+
+
+let checkLogin = () => {
+    if (!isLogin || isLogin === 'false') {
+        localStorage.clear();
+        loginElement.dataset.target = '#login-modal';
+        loginElement.innerText = 'LOGIN';
+    } else if (isLogin === 'true') {
+        loginElement.dataset.target = '';
+        loginElement.innerText = 'LOGOUT';
+    }
+}
+
+checkLogin();
+const API_URL = "https://tripadvisor16.p.rapidapi.com/";
+const tripAdvisorHost = "tripadvisor16.p.rapidapi.com";
+const tripAdvisorKey = "5a34249353msh9d4d1b9b019435ep182275jsnb59245ee8815";
+
+
+document.getElementById('view-more-city-cards').style.display='none';
+function viewMore() {
+    let viewMoreButton = document.getElementById('viewMoreBtn');
+    if(viewMoreButton.innerText==="View More"){
+        document.getElementById('view-more-city-cards').style.display='initial';
+        viewMoreButton.innerText="View Less";
+    }
+    else{
+        document.getElementById('view-more-city-cards').style.display='none';
+        viewMoreButton.innerText="View More";
+    }
+}
+
+
+// Debounce is used to control number of times a function is being executed
+// if it is being called repeatedly
+// read more - https://levelup.gitconnected.com/debounce-in-javascript-improve-your-applications-performance-5b01855e086
+let debounce = (func, wait, immediate) => {
+    let timeout;
+    return function executedFunction() {
+        let context = this;
+        let args = arguments;
+        let later = ()=> {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        let callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+  
+let search = () => {
+    let currentFocus;
+    let searchInputElement = document.getElementById("search-input");
+    /*Event Listender when some data is entered in the search text field*/
+    searchInputElement.addEventListener("input", debounce(function(e) {
+        // Get the new value entered in the input field
+        let newValue = this.value;
+
+        let xhr = new XMLHttpRequest();
+        if (!newValue || newValue.length < 3) {
+            closeAllLists();
+            return false;
+        }
+
+        xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === this.DONE) {
+                /*close any already open lists of searched values*/
+                closeAllLists();
+                const data = JSON.parse(this.responseText).data;
+                const geos = data.filter((element) => {
+                    return element.result_type === "geos"
+                });
+                let loactionList = [];
+                geos.forEach((element) => {
+                    loactionList.push(element.result_object.name);
+                });
+                currentFocus = -1;
+                /*create a div which will show the suggestion list:*/
+                let searchListDiv = document.createElement("div");
+                searchListDiv.setAttribute("id", searchInputElement.id + "search-list");
+                searchListDiv.setAttribute("class", "search-items");
+                /*append the DIV element as a child of the search container:*/
+                searchInputElement.parentNode.appendChild(searchListDiv);
+                /*for each item in the array...*/
+                for (let i = 0; i < loactionList.length; i++) {
+                /*check if the item starts with the same letters as the text field value:*/
+                    if ((loactionList[i].toUpperCase()).includes(newValue.toUpperCase())) {
+                        /*create a DIV element for each matching element:*/
+                        let listElementDiv = document.createElement("div");
+                        listElementDiv.setAttribute("onClick", "window.location='list.html?city=" + loactionList[i] + "'");
+                        listElementDiv.innerText = loactionList[i];
+                        /*insert a input field that will hold the current array item's value:*/
+                        listElementDiv.innerHTML += "<input type='hidden' value='" + loactionList[i] + "'>";
+                        /*execute a function when someone clicks on a city shown as the suggestions*/
+                        listElementDiv.addEventListener("click", function(e) {
+                            /*insert the value for the search text field:*/
+                            searchInputElement.value = this.getElementsByTagName("input")[0].value;
+                            /*close the list of search values,
+                            (or any other open lists of search values:*/
+                            closeAllLists();
+                        });
+                        searchListDiv.appendChild(listElementDiv);
+                    }
+                }
+            }
+        });
+
+        xhr.open("GET", API_URL + "locations/auto-complete?lang=en_US&units=km&query=" + newValue);
+        xhr.setRequestHeader("x-rapidapi-host", tripAdvisorHost);
+        xhr.setRequestHeader("x-rapidapi-key", tripAdvisorKey);
+        xhr.send();
+        
+    },500));
+
+    let closeAllLists = elmnt => {
+        /*close all search lists in the document,
+        except the one passed as an argument:*/
+        let x = document.getElementsByClassName("search-items");
+        for (let i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != searchInputElement) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+
+    /*execute a function when someone clicks in the document:*/
+    document.addEventListener("click", e => {
+        closeAllLists(e.target);
+    });
+}
+
+/*call the search funtion with the list of cities if api is not integrated*/
+search();
+//Call disable loader after the page gets loaded completed
+disableLoader();
+</script>
+</html>

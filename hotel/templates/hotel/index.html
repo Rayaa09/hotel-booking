@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<html>
+
+
+ <style type="text/css">
+ {% comment %} body
+ {
+ background-color:crimson;  
+ } {% endcomment %}
+ 
+  body
+{
+background-image:url(about.jpg);
+background-size:cover;
+} 
+ 
+ h1
+ {
+  text-align: center; 
+  font-weight: 900;
+ }
+h2{
+   font-size:35px;
+   font-style:oblique;
+   text-decoration: underline;
+   text-decoration-style: blink;
+   font-weight: 900;
+   line-height: 2.5;
+   margin-bottom: 10px;
+   margin-top: 0;
+}
+h4
+{
+  background-color: slateblue;
+  margin-left:10px;
+  color:white;
+  border-style:solid;
+  display: table; /* keep the background color wrapped tight */
+  margin: 0px auto 0px auto; /* keep the table centered */
+  padding:5px;font-size:25px;
+}
+p{
+   font-size:40 px;
+   font-style:oblique;
+   font-weight: 500;
+   line-height: 2;
+   color:#000000;
+   background-color:#00FA9A;
+   border-style:solid;
+   opacity:0.7;
+} 
+ #final
+  {
+    text-align: center;
+    display:block;
+    color: blue;
+    background-color: transparent;
+    text-decoration: underline;
+   } 
+  .button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+  .button4 {
+  background-color:	#0066ff;
+  }
+  #link{
+    color:white;
+  }
+</style>
+
+&nbsp;&nbsp;<h1>WE WELCOME YOU TO HOTEL DELUXE</h1>
+<body style="background-image: url('{% static "hotel/images/bg.jpg"%}');>
+<br><h2 style="text-align:center"></h2>
+<p style="text-align:center"><b><i><br>
+ADDRESS:12, J. L. Nehru Road, Kolkata - 700013<br><br>
+This spacious and lavishly designed 1,069 sq.ft Suite featuring a deluxe king size bed,<br>
+stunning ocean view, private terrace with gold-tiled jetted plunge pool<br>
+mini-lounge with sofa and en suite bathroom provides a deliciously elegant and trendy setting for exclusive contemporary vacations.<br><br>
+
+You can also order room service, make a reservation at the spa or send a message to the concierge on the iPad that features in your suite. One night in the Mousai Suite and your expectations of luxury will be changed forever.
+</i></p> 
+
+<h4 style="text-align:center" >Want to check our hotel location in google map?Click here</h4><br>
+<a style="font-weight:bold" href="{% url 'map' %}" id="final" ><button type="submit" class="button button4" id="link">GOOGLE MAP</button></a>
+</body>
+</html>
+{% endblock %}
